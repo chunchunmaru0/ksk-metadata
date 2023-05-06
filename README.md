@@ -4,8 +4,12 @@ README.md
 
 #
 
-Use this KSK-MEtadata Scraper to scrape the metadata from the ksk.moe
+Use this KSK-Metadata Scraper to scrape the metadata from the ksk.moe
 
+## Install
+```
+npm i ksk-metadata
+```
 
 ## USAGE
 
@@ -34,7 +38,7 @@ async function test() {
 test();
 ```
 ###
-##Example Output
+## Example Output
 ```json
 {
     "sucess": true,
