@@ -1,0 +1,39 @@
+{
+  "name": "@chunchunmaru0/ksk-metadata",
+  "version": "1.0.0",
+  "description": "README.md\r # KSK-Metadata Scraper\r ## SCRAPE THE METADATA FROM KSK.MOE",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "chunchunmaru0",
+  "license": "ISC",
+  "type": "module",
+  "dependencies": {
+    "crawler": "^1.4.0"
+  },
+  "directories": {
+    "test": "test"
+  },
+  "devDependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/chunchunmaru0/ksk-metadata.git"
+  },
+  "keywords": [
+    "ksk.moe",
+    "ksk-metadata",
+    "metadata",
+    "scraper",
+    "ksk",
+    "metadata",
+    "scraper",
+    "hentai",
+    "scraper",
+    "hentai"
+  ],
+  "bugs": {
+    "url": "https://github.com/chunchunmaru0/ksk-metadata/issues"
+  },
+  "homepage": "https://github.com/chunchunmaru0/ksk-metadata#readme"
+}
