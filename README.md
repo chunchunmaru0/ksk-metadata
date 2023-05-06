@@ -1,4 +1,3 @@
-README.md
 # KSK-Metadata Scraper
 ## SCRAPE THE METADATA FROM KSK.MOE
 
@@ -21,7 +20,7 @@ import {ksk} from 'ksk-metadata'
     const kskResult = await ksk('https://ksk.moe/archive/10426/i-think-im-the-only-one-getting-this-on-the-job-training')
 
     //do something with the result
-    console.log(kskResult);
+    console.log(kskResult);s
 
 ```
 CommonJS example:
