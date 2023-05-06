@@ -1,6 +1,6 @@
-import Crawler from 'crawler';
+const Crawler = require('crawler')
 
- export function ksk(kskUrl) {
+function ksk(kskUrl) {
 
     var metaData;
     return new Promise((resolve, reject) => {
@@ -126,3 +126,4 @@ import Crawler from 'crawler';
     });
 
 }
+module.exports = ksk;
