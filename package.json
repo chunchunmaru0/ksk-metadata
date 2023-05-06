@@ -1,6 +1,6 @@
 {
   "name": "ksk-metadata",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "README.md\r # KSK-Metadata Scraper\r ## SCRAPE THE METADATA FROM KSK.MOE",
   "main": "index.js",
   "scripts": {
