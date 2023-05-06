@@ -13,6 +13,7 @@ npm i ksk-metadata
 ## USAGE
 
 Returns an object containing all the metadata info
+###
 If you're using ES6 module:
 ```js
 import {ksk} from 'ksk-metadata'
