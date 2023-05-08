@@ -18,10 +18,10 @@ If you're using ES6 module:
 ```js
 import {ksk} from 'ksk-metadata'
 
-    const kskResult = await ksk('https://ksk.moe/archive/10426/i-think-im-the-only-one-getting-this-on-the-job-training')
+    const kskResult = await ksk('https://ksk.moe/archive/12345/gallery-name')
 
     //do something with the result
-    console.log(kskResult);s
+    console.log(kskResult);
 
 ```
 CommonJS example:
@@ -30,8 +30,8 @@ const ksk = require('ksk-metadata')
 
 
 async function test() {
-    const kskRes = (await ksk('https://ksk.moe/archive/10426/i-think-im-the-only-one-getting-this-on-the-job-training'))
-    //do something with res
+    const kskRes = (await ksk('https://ksk.moe/archive/12345/gallery-name'))
+    //do something with result
     console.log(kskRes)
 }
 
