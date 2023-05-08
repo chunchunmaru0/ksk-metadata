@@ -1,6 +1,6 @@
 const Crawler = require('crawler')
 
-ksk('https://ksk.moe/view/9875/67efb5e74bb1')
+ksk('https://ksk.moe/view/11463/0617459162d3')
 function ksk(kskUrl) {
 
     var metaData;
@@ -44,23 +44,25 @@ function ksk(kskUrl) {
                                 break;
                             case 'Artist':
                                 $(element).parent().find('div >a').each(function (ind, el) {
-                                    authors.push($(el).text().replace(/\n/g, '').replace(/\d.+/g, ''))
+                                    let junkAuthors = $(el).text().replace(/\n/g, '')
+                                    authors.push(junkAuthors.replace(/\d+/g, ''))
                                 })
                                 break;
                             case 'Circle':
                                 $(element).parent().find('div >a').each(function (ind, el) {
-                                    circle.push($(el).text().replace(/\n/g, '').replace(/\d.+/g, ''))
+                                    let junkCircle = $(el).text().replace(/\n/g, '')
+                                    circle.push(junkCircle.replace(/\d+/g, ''))
                                 })
                                 break;
                             case 'Parody':
-                                $(element).parent().find('div >a').each(function (ind, el) {
-                                    parody = ($(el).text()).replace(/\n/g, '').replace(/\d.+/g, '')
-                                })
+                                    parody = $(element).parent().find('span').html();
                                 break;
                             case 'Magazine':
-                                $(element).parent().find('div >a').each(function (ind, el) {
-                                    magazine = ($(el).text()).replace(/\n/g, '').replace(/\d.+/g, '')
-                                })
+                                
+                                    magazine = $(element).parent().find('span').html()
+                                    //magazine = junkMagazine.replace(/\d+/g, '')
+                                    console.log(magazine)
+
                                 break;
                             case 'Tag':
                                 $(element).parent().find('div >a').each(function (ind, el) {
@@ -80,7 +82,7 @@ function ksk(kskUrl) {
                                 $(element).parent().find('div >a').each(function (ind, el) {
                                     //console.log($(el).attr('href'))
                                     label = $(el).text(),
-                                    extLink = `https://ksk.moe/${$(el).attr('href')}`
+                                    extLink = `https://ksk.moe${$(el).attr('href')}`
                                     links.push({
                                         label: label,
                                         url: extLink
@@ -119,6 +121,9 @@ function ksk(kskUrl) {
                         'full_title': fullTitle,
                         'thumbnail': thumbnail,
                         "authors": authors,
+                        "parody":parody,
+                        
+                        "page":toalPages,
                         //"circle":circle,
                         "tags": tags,
                         'publisher': label,
@@ -126,10 +131,14 @@ function ksk(kskUrl) {
                         //"created_date": date,
                         //"published_date": pubDate
                     }
-                    if(circle != undefined || circle != ''){
+                    if(circle.length != 0){
                         metaData['circle'] = circle
                     }
+                    if(magazine != undefined || magazine != ''){
+                        metaData['magazine'] = magazine
+                    }
                     console.log(metaData)
+                    console.log(magazine,circle)
                     done();
                     resolve(metaData);
 
