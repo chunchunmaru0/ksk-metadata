@@ -1,6 +1,5 @@
 const Crawler = require('crawler')
 
-ksk('https://ksk.moe/view/11459/4f16b4f925a5')
 function ksk(kskUrl) {
 
     var metaData;
@@ -149,7 +148,7 @@ function ksk(kskUrl) {
                     }
                     //adding dates to the last
                     Object.entries(dateMd).forEach(([k,v]) => {metaData[k] = v})
-                    console.log(metaData)
+                    //console.log(metaData)
                     //console.log(magazine,circle)
                     done();
                     resolve(metaData);
@@ -164,3 +163,4 @@ function ksk(kskUrl) {
     });
 
 }
+module.exports = ksk;
