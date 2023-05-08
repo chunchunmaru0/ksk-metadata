@@ -16,193 +16,130 @@ function ksk(kskUrl) {
                 } else {
                     const $ = res.$;
                     //console.dir(res.$('#metadata').html());
-                    var mdData = [];
-                    var mdTitle = []
-                    let testArr=[];
-                    let dataTest=[];
-                    let newTagsArr = [];
+                    let title,fullTitle;
+                    let tags = [];
+                    let category, parody, magazine, toalPages, oSize, rSize, uploadedAt, archivedAt, publishedAt, updatedAt
+                    let authors = [];
+                    let circle = [];
+                    let links=[{label:'ksk.moe', url: kskUrl}]
+                    
+                    let extLink, label;
                     //console.log($('#metadata').find('main >div>div >a').html())
+                    let thumbnail = {
+                        url :($('#cover').find('img').attr('src')),
+                        title: ($('#cover').find('img').attr('title')),
+                        alt: ($('#cover').find('img').attr('alt')),
+                    }
+                    title =   $('#metadata').find('header >h1').text()
+                    fullTitle =$('#metadata').find('header >h2').text()
+                    console.log(title,fullTitle)
+                    console.log(thumbnail)
                     $('#metadata').find('main >div>strong').each(function (index, element) {
 
                         switch ($(element).text()) {
-                            case 'Metadata':
-                                console.log("There is Metadata in here")
+                            case 'Category':
                                 $(element).parent().find('div >a').each(function (ind, el) {
-                                    //console.log($(el).attr('href'))
-                                    mdData.push($(el).attr('href'))
-                                    dataTest[index]=$(el).attr('href')
+                                    category = $(el).text().replace(/\n/g, '')
                                 })
                                 break;
-                        
+                            case 'Artist':
+                                $(element).parent().find('div >a').each(function (ind, el) {
+                                    authors.push($(el).text().replace(/\n/g, '').replace(/\d.+/g, ''))
+                                })
+                                break;
+                            case 'Circle':
+                                $(element).parent().find('div >a').each(function (ind, el) {
+                                    circle.push($(el).text().replace(/\n/g, '').replace(/\d.+/g, ''))
+                                })
+                                break;
+                            case 'Parody':
+                                $(element).parent().find('div >a').each(function (ind, el) {
+                                    parody = ($(el).text()).replace(/\n/g, '').replace(/\d.+/g, '')
+                                })
+                                break;
+                            case 'Magazine':
+                                $(element).parent().find('div >a').each(function (ind, el) {
+                                    magazine = ($(el).text()).replace(/\n/g, '').replace(/\d.+/g, '')
+                                })
+                                break;
+                            case 'Tag':
+                                $(element).parent().find('div >a').each(function (ind, el) {
+                                    //console.log("Tags:", )
+                                    let junkTags = ($(el).text())
+                                    junkTags = junkTags.replace(/\n/g, '')
+                                    let tag = junkTags.replace(/\d.+/g, '')
+                                    tags.push(tag)
+                                })
+                                break;
+                            case 'Length':
+                                $(element).parent().find('div >a').each(function (ind, el) {
+                                    toalPages = ($(el).text()).replace(/\n/g, '')
+                                })
+                                break;
+                            case 'Metadata':
+                                $(element).parent().find('div >a').each(function (ind, el) {
+                                    //console.log($(el).attr('href'))
+                                    label = $(el).text(),
+                                    extLink = `https://ksk.moe/${$(el).attr('href')}`
+                                    links.push({
+                                        label: label,
+                                        url: extLink
+                                    })
+
+                                })
+                                break;
+                            case 'Size (Ori.)':
+                                oSize = $(element).parent().find('div >div >span').html();
+                                break;
+                            case 'Size (Res.)':
+                                rSize = $(element).parent().find('div >div >span').html();
+                                break;
+                            case 'Uploaded':
+                                uploadedAt = $(element).parent().find('div >time').attr('data-timestamp')
+                                break;
+                            case 'Archived':
+                                archivedAt = $(element).parent().find('div >time').attr('data-timestamp')
+                                break;
+                            case 'Published':
+                                publishedAt = $(element).parent().find('div >time').attr('data-timestamp')
+                                break;
+                            case 'Updated':
+                                updatedAt = $(element).parent().find('div >time').attr('data-timestamp')
+                                break;
                             default:
                                 break;
                         }
-                        //console.log($(element).text());
-                        mdTitle.push($(element).text());
-                        testArr[index] = $(element).text();
-                        // if ($(element).text() == 'Tag') {
-                        //     $(element).parent().find('div >a').each(function (ind, el) {
-                        //     newTagsArr.push(mdData.push($(el).text()))
-                        //     })
-                        //     dataTest[index] = newTagsArr;
-                        // }
-                        if ($(element).text() == 'Metadata') {
-                            $(element).parent().find('div >a').each(function (ind, el) {
-                                //console.log($(el).attr('href'))
-                                mdData.push($(el).attr('href'))
-                                dataTest[index]=$(el).attr('href')
-                            })
-                        }
-                        if (
-                            $(element).text() == 'Size (Ori.)' ||
-                            $(element).text() == 'Size (Res.)'
-                        ) {
 
-                            let el = $(element).parent().find('div >div >span').html();
-                            console.log(el)
-                            mdData.push(el)
-                            dataTest[index]= el
 
-                        }
-                        if (
-                            $(element).text() == 'Uploaded' ||
-                            $(element).text() == 'Archived' ||
-                            $(element).text() == 'Published' ||
-                            $(element).text() == 'Updated'
-                            ) {
-                                console.log($(element).parent().find('div >time').attr('data-timestamp'))
-                                dataTest[index]= $(element).parent().find('div >time').attr('data-timestamp')
-                        }
-                        if (
-                            $(element).text() == 'Tag'){
-                                $(element).parent().find('div >a').each(function (ind, el) {
-                                   //console.log("Tags:", )
-                                   let junkTags = ($(el).text())
-                                   junkTags = junkTags.replace(/\n/g, '')
-                                   let tags = junkTags.replace(/\d.+/g, '')
-                                   newTagsArr.push(tags)
-                                })
-                            }
-
-                        $(element).parent().find('div >a').each(function (ind, el) {
-                            mdData.push($(el).text())
-                            dataTest[index]=$(el).text()
-                        })
-                    });
-
-                    console.log(mdTitle, mdData)
-                    // for (let i =0)
-                    console.log("Test,", testArr,dataTest, "Tags:", newTagsArr)
-                    return
-                    let title = res.$('#metadata').children('h1').text();
-                    if (title == undefined || title == '') {
-                        metaData = { 'sucess': false }
-                        reject(metaData)
-                        return
-                    }
-                    let full_title = res.$('#metadata').children('h2').text();
-
-                    var list = [];
-
-                    $('#metadata').find('div >div >a').each(function (index, element) {
-                        list.push($(element).attr('title'));
-                    });
-
-                    let authors = [];
-                    let tags = [];
-                    var link = '';
-                    var links = [];
-                    var publisher = '';
-                    var unixDate = '';
-                    list.forEach(el => {
-                        if (el == undefined) {
-                            return;
-                        }
-                        if (el.includes('Artist')) { //for Artist
-                            var artist = (el.replace('Artist: ', ''))
-                            authors.push({
-                                "name": artist,
-                                "role": "Artist"
-                            })
-                        }
-                        if (el.includes('Circle')) { //for Circle 
-                            var circle = (el.replace('Circle: ', ''))
-                            authors.push({
-                                "name": circle,
-                                "role": "Circle"
-                            })
-                        }
-
-                        if (el.includes('Tag')) {
-                            var tag = (el.replace('Tag: ', ''))
-                            tags.push(tag);
-
-                        }
-                    });
-                    links.push({
-                        "label": 'ksk.moe',
-                        "url": kskUrl
                     })
-                    res.$('#metadata .l').last().find('a').each(function (index, element) {
-                        //console.log($(element).attr('title'));
-                        if ($(element).attr('title') == undefined) {
-                            publisher = ($(element).text().replace(/\n/g, ''))
-                            link = ($(element).attr('href'));
-                            links.push({
-                                "label": publisher,
-                                "url": link
-                            })
-                        } else if (($(element).attr('title').includes('Page'))) {
-                            //no publisher it's page
-                        } else {
-                            publisher = ($(element).text().replace(/\n/g, ''))
-                            link = ($(element).attr('href'));
-                            links.push({
-                                "label": publisher,
-                                "url": link
-                            })
-                        }
-                        //console.log($(element).attr('href'))
 
-
-
-                    });
-                    let date, pubDate, imgUrl;
-                    res.$('#metadata .createdAt').each((index, element) => {
-                        unixDate = ($(element).attr('data-timestamp'))
-                        date = new Date(unixDate * 1000);
-                        //console.log(date.toLocaleDateString("default"));
-                    });
-                    res.$('#metadata .publishedAt').each((index, element) => {
-                        unixDate = ($(element).attr('data-timestamp'))
-                        pubDate = new Date(unixDate * 1000);
-                        //console.log(date.toLocaleDateString("default"));
-                    });
-                    res.$('.wrapper').find('img').each((index, element) => {
-                        imgUrl = ($(element).attr('src'))
-                    });
                     metaData = {
                         "sucess": true,
                         "title": title,
-                        'full_title': full_title,
-                        'thumbnail': imgUrl,
+                        'full_title': fullTitle,
+                        'thumbnail': thumbnail,
                         "authors": authors,
+                        //"circle":circle,
                         "tags": tags,
-                        'publisher': publisher,
+                        'publisher': label,
                         "links": links,
-                        "created_date": date,
-                        "published_date": pubDate
+                        //"created_date": date,
+                        //"published_date": pubDate
                     }
-                }
+                    if(circle != undefined || circle != ''){
+                        metaData['circle'] = circle
+                    }
+                    console.log(metaData)
+                    done();
+                    resolve(metaData);
 
-                done();
-                resolve(metaData);
+                }
 
             }
         });
+
         c.queue(kskUrl);
 
     });
 
 }
-//module.exports = ksk;
