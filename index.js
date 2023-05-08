@@ -1,6 +1,6 @@
 const Crawler = require('crawler')
 
-ksk('https://ksk.moe/view/11463/0617459162d3')
+ksk('https://ksk.moe/view/11459/4f16b4f925a5')
 function ksk(kskUrl) {
 
     var metaData;
@@ -32,8 +32,10 @@ function ksk(kskUrl) {
                     }
                     title =   $('#metadata').find('header >h1').text()
                     fullTitle =$('#metadata').find('header >h2').text()
-                    console.log(title,fullTitle)
-                    console.log(thumbnail)
+
+                    if(title == ''){ metaData = { 'sucess': false }; console.log('Something went wrong! Most Probably you entered wrong URL'); reject(metaData); return}
+                    //console.log(title,fullTitle)
+                    //console.log(thumbnail)
                     $('#metadata').find('main >div>strong').each(function (index, element) {
 
                         switch ($(element).text()) {
@@ -61,7 +63,7 @@ function ksk(kskUrl) {
                                 
                                     magazine = $(element).parent().find('span').html()
                                     //magazine = junkMagazine.replace(/\d+/g, '')
-                                    console.log(magazine)
+                                    //console.log(magazine)
 
                                 break;
                             case 'Tag':
@@ -120,25 +122,35 @@ function ksk(kskUrl) {
                         "title": title,
                         'full_title': fullTitle,
                         'thumbnail': thumbnail,
+                        "category":category,
                         "authors": authors,
-                        "parody":parody,
-                        
+                        "parody":parody,                       
                         "page":toalPages,
-                        //"circle":circle,
+                        "original_size":oSize,
+                        "resampled_size":rSize,                    
                         "tags": tags,
                         'publisher': label,
                         "links": links,
-                        //"created_date": date,
-                        //"published_date": pubDate
+
+
                     }
                     if(circle.length != 0){
                         metaData['circle'] = circle
                     }
-                    if(magazine != undefined || magazine != ''){
+                    
+                    if(magazine != undefined){
                         metaData['magazine'] = magazine
                     }
+                    dateMd ={
+                        "uploaded_date": uploadedAt,
+                        "archived_date":archivedAt,                        
+                        "published_date": publishedAt,
+                        "updated_date":updatedAt,
+                    }
+                    //adding dates to the last
+                    Object.entries(dateMd).forEach(([k,v]) => {metaData[k] = v})
                     console.log(metaData)
-                    console.log(magazine,circle)
+                    //console.log(magazine,circle)
                     done();
                     resolve(metaData);
 
