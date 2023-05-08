@@ -2,9 +2,11 @@ const ksk = require('ksk-metadata');
 
 
 async function test() {
-    const kskRes = (await ksk('https://ksk.moe/view/9875/67efb5e74bb1'))
+    const kskRes = (await ksk('https://ksk.moe/view/1234/asdfasdfasdf'))
     //do something with res
     console.log(kskRes)
+    //jsonify
+    console.log(JSON.stringify(kskRes)) 
 }
 
 test();
@@ -12,12 +14,12 @@ test();
 
 /* Or you can do this */
 
-// const ksk = require('ksk-metadata');
+const ksk = require('ksk-metadata');
 
 
-// (async () => {
-//     const kskRes = (await ksk('https://ksk.moe/archive/10426/i-think-im-the-only-one-getting-this-on-the-job-training'))
-//     //do something with res
-//     console.log(kskRes)
+(async () => {
+    const kskRes = (await ksk('https://ksk.moe/view/1234/asdfasdfasdf'))
+    //do something with res
+    console.log(kskRes)
 
-// })();
+})();
