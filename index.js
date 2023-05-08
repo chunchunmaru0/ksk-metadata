@@ -1,5 +1,6 @@
 const Crawler = require('crawler')
 
+ksk('https://ksk.moe/view/9875/67efb5e74bb1')
 function ksk(kskUrl) {
 
     var metaData;
@@ -14,7 +15,85 @@ function ksk(kskUrl) {
                     reject(metaData)
                 } else {
                     const $ = res.$;
-                    //console.dir(list);
+                    //console.dir(res.$('#metadata').html());
+                    var mdData = [];
+                    var mdTitle = []
+                    let testArr=[];
+                    let dataTest=[];
+                    let newTagsArr = [];
+                    //console.log($('#metadata').find('main >div>div >a').html())
+                    $('#metadata').find('main >div>strong').each(function (index, element) {
+
+                        switch ($(element).text()) {
+                            case 'Metadata':
+                                console.log("There is Metadata in here")
+                                $(element).parent().find('div >a').each(function (ind, el) {
+                                    //console.log($(el).attr('href'))
+                                    mdData.push($(el).attr('href'))
+                                    dataTest[index]=$(el).attr('href')
+                                })
+                                break;
+                        
+                            default:
+                                break;
+                        }
+                        //console.log($(element).text());
+                        mdTitle.push($(element).text());
+                        testArr[index] = $(element).text();
+                        // if ($(element).text() == 'Tag') {
+                        //     $(element).parent().find('div >a').each(function (ind, el) {
+                        //     newTagsArr.push(mdData.push($(el).text()))
+                        //     })
+                        //     dataTest[index] = newTagsArr;
+                        // }
+                        if ($(element).text() == 'Metadata') {
+                            $(element).parent().find('div >a').each(function (ind, el) {
+                                //console.log($(el).attr('href'))
+                                mdData.push($(el).attr('href'))
+                                dataTest[index]=$(el).attr('href')
+                            })
+                        }
+                        if (
+                            $(element).text() == 'Size (Ori.)' ||
+                            $(element).text() == 'Size (Res.)'
+                        ) {
+
+                            let el = $(element).parent().find('div >div >span').html();
+                            console.log(el)
+                            mdData.push(el)
+                            dataTest[index]= el
+
+                        }
+                        if (
+                            $(element).text() == 'Uploaded' ||
+                            $(element).text() == 'Archived' ||
+                            $(element).text() == 'Published' ||
+                            $(element).text() == 'Updated'
+                            ) {
+                                console.log($(element).parent().find('div >time').attr('data-timestamp'))
+                                dataTest[index]= $(element).parent().find('div >time').attr('data-timestamp')
+                        }
+                        if (
+                            $(element).text() == 'Tag'){
+                                $(element).parent().find('div >a').each(function (ind, el) {
+                                   //console.log("Tags:", )
+                                   let junkTags = ($(el).text())
+                                   junkTags = junkTags.replace(/\n/g, '')
+                                   let tags = junkTags.replace(/\d.+/g, '')
+                                   newTagsArr.push(tags)
+                                })
+                            }
+
+                        $(element).parent().find('div >a').each(function (ind, el) {
+                            mdData.push($(el).text())
+                            dataTest[index]=$(el).text()
+                        })
+                    });
+
+                    console.log(mdTitle, mdData)
+                    // for (let i =0)
+                    console.log("Test,", testArr,dataTest, "Tags:", newTagsArr)
+                    return
                     let title = res.$('#metadata').children('h1').text();
                     if (title == undefined || title == '') {
                         metaData = { 'sucess': false }
@@ -37,7 +116,7 @@ function ksk(kskUrl) {
                     var unixDate = '';
                     list.forEach(el => {
                         if (el == undefined) {
-                            return; 
+                            return;
                         }
                         if (el.includes('Artist')) { //for Artist
                             var artist = (el.replace('Artist: ', ''))
@@ -126,4 +205,4 @@ function ksk(kskUrl) {
     });
 
 }
-module.exports = ksk;
+//module.exports = ksk;
