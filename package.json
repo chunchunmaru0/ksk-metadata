@@ -1,6 +1,6 @@
 {
   "name": "ksk-metadata",
-  "version": "1.0.2",
+  "version": "2.0.0",
   "description": "README.md\r # KSK-Metadata Scraper\r ## SCRAPE THE METADATA FROM KSK.MOE",
   "main": "index.js",
   "scripts": {
@@ -24,13 +24,12 @@
     "ksk.moe",
     "ksk-metadata",
     "metadata",
-    "scraper",
-    "ksk",
-    "metadata",
-    "scraper",
+    "ksk scraper",
+    "ksk metadata",
+    "Koushoku",
+    "hentai scraper",
     "hentai",
-    "scraper",
-    "hentai"
+    "koushoku scraper"
   ],
   "bugs": {
     "url": "https://github.com/chunchunmaru0/ksk-metadata/issues"
