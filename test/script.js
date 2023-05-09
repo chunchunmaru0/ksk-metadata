@@ -7,6 +7,10 @@ async function test() {
     console.log(kskRes)
     //jsonify
     console.log(JSON.stringify(kskRes)) 
+
+    //OR
+    //If you want an Arrays or URL
+    await (ksk([url1,url2], rate )); //url1, url2 is your ksk url and rate is Rate between those urls to access in MS
 }
 
 test();
