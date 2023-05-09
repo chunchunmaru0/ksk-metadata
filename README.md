@@ -19,11 +19,19 @@ If you're using ES6 module:
 import ksk from "ksk-metadata";
 
 const kskRes = (await ksk('https://ksk.moe/view/1234/asdfasdfasdf'))
-
 console.log(kskRes)
 //do something with the result 
 
 console.log(JSON.stringify(kskRes)) //jsonify the output obj to jsonObj
+
+/*____________________OR_____________________*/
+let urlArr = [
+    'https://ksk.moe/view/1234/asdfasdfasdf',
+   'https://ksk.moe/view/1234/asdfasdfasdf',
+]
+
+
+const kskRes = (await ksk(urlArr, 3000)) //second param is Rate Limit in ms, change it to your liking
 
 ```
 CommonJS example:
@@ -51,6 +59,10 @@ const ksk = require('ksk-metadata');
     console.log(kskRes)
 
 })();
+
+//For Multiple of URL
+
+const kskRes = (await ksk(['https://ksk.moe/view/1234/asdfasdfasdf','https://ksk.moe/view/1234/asdfasdfasdf'], 3000)) //second param is Rate Limit in ms, change it to your liking
 
 ```
 ###
